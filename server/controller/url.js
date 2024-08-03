@@ -18,4 +18,22 @@ async function handleGenerateShortUrl(req, res) {
     }
 }
 
-module.exports = handleGenerateShortUrl 
+async function redirectFromShortUrl(req, res) {
+    try {
+        const { shortUrl } = req.params;
+        const url = await URL.findOneAndUpdate({ shortUrl }, { $push: { history: Date.now() } });
+        if (!url) {
+            return res.status(404).json({ message: 'URL not found' });
+        }
+        res.redirect(url.url);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Internal server error',
+            error: err.message
+        });
+    }
+}
+
+module.exports = {handleGenerateShortUrl , redirectFromShortUrl}

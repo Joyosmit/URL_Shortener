@@ -11,7 +11,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/generate", router)
+app.use("/url", router)
+
+app.use('/', router)
 
 
 

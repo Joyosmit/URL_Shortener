@@ -6,7 +6,7 @@ export default function Home() {
     const handleSubmit = async (event:any) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:8001/generate', {
+          const response = await fetch('https://url-shortener-ymz7.onrender.com/generate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
